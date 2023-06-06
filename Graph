@@ -1,0 +1,36 @@
+##Disjoint Set
+
+class disjoint{
+    vector<int> rank,parent;
+    
+    public:
+        disjoint(int n){
+            rank.resize(n,0);
+            parent.resize(n);
+            for(int i=0;i<n;i++){
+                parent[i]=i;
+            }
+        }
+        
+        int findup(int u){
+            if(parent[u]==u)return u;
+            else return findup(parent[u]);
+        }
+        
+        void dsunion(int u,int v){
+            int up_u=findup(u);
+            int up_v=findup(v);
+            if(up_u==up_v)return ;
+            else if(rank[up_u]>rank[up_v]){
+                parent[up_v]=up_u;
+            }
+            else if(rank[up_u]<rank[up_v]){
+                parent[up_u]=up_v;
+            }
+            else if(rank[up_u]==rank[up_v]){
+                parent[up_v]=up_u;
+                rank[up_u]++;
+            }
+            
+        }
+};
